@@ -96,14 +96,15 @@ body.ready .brand{animation:fade .8s .4s forwards}
 .brand b{color:var(--signal);font-weight:700}
 
 /* compact fixed menu button — inner views only */
-.menu-fixed{position:fixed;top:14px;right:var(--pad);z-index:900;height:44px;padding:0 18px;
-  border:1px solid var(--grid);border-radius:100px;display:inline-flex;align-items:center;gap:11px;
-  font:500 11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--ash);
-  background:rgba(16,19,24,.6);backdrop-filter:blur(6px);
-  transition:border-color .35s,color .35s;opacity:0}
-body.ready .menu-fixed{animation:fade .8s .5s forwards}
-.menu-fixed:hover{border-color:var(--signal);color:var(--bone)}
+.menu-fixed{position:fixed;top:14px;right:var(--pad);z-index:900;height:46px;padding:0 20px;
+  border:1.5px solid var(--signal);border-radius:100px;display:inline-flex;align-items:center;gap:11px;
+  font:600 11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--signal);
+  background:rgba(16,19,24,.72);backdrop-filter:blur(6px);box-shadow:0 0 22px rgba(92,225,255,.18);
+  opacity:0;transition:opacity .5s var(--out),border-color .35s,color .35s,background .35s,box-shadow .35s,transform .35s var(--out)}
+body.ready .menu-fixed{opacity:1}
+.menu-fixed:hover{background:var(--signal);color:var(--void);box-shadow:0 0 30px rgba(92,225,255,.45);transform:translateY(-1px)}
 body[data-view="home"] .menu-fixed{display:none}
+body.menu-open .menu-fixed{opacity:0;pointer-events:none}
 .bars{width:16px;height:10px;position:relative;flex:none}
 .bars i{position:absolute;left:0;width:100%;height:1.5px;background:currentColor;border-radius:2px;
   transition:all .4s var(--ease)}
@@ -214,6 +215,17 @@ h1 .ln:nth-child(2) span{color:transparent;-webkit-text-stroke:1.4px var(--bone)
   .menu-launch{height:66px;font-size:14px;gap:13px}
   .btn{height:44px;padding:0 18px}
 }
+
+/* ═══ HOMEPAGE ANIMATED BACKGROUND ═══ */
+.home-aura{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.7;
+  background:radial-gradient(42% 42% at 28% 34%,rgba(92,225,255,.11),transparent 70%),
+             radial-gradient(46% 46% at 76% 72%,rgba(255,180,61,.06),transparent 70%);
+  animation:auraDrift 20s ease-in-out infinite alternate}
+@keyframes auraDrift{from{transform:translate(-4%,-3%) scale(1)}to{transform:translate(5%,4%) scale(1.14)}}
+#home-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0;
+  transition:opacity 1.2s var(--out)}
+body.ready #home-canvas{opacity:1}
+#view-home .hero{position:relative;z-index:1}
 
 /* ═══════════════ WORK ═══════════════ */
 .scroller{height:100svh;overflow-y:auto;padding:100px var(--pad) 76px}
@@ -350,9 +362,9 @@ a.crow:hover .v::after{opacity:1;transform:none}
 
 /* ═══ FULLPAGE MENU ═══ */
 .menu{position:fixed;inset:0;z-index:800;background:var(--carbon);display:flex;flex-direction:column;
-  justify-content:center;padding:0 clamp(24px,8vw,120px);transform:translateY(-100%);
-  transition:transform .75s var(--ease);visibility:hidden;overflow-y:auto}
-.menu.open{transform:none;visibility:visible}
+  justify-content:center;padding:0 clamp(24px,8vw,120px);transform:translateY(-100%);opacity:0;
+  transition:transform .6s var(--ease),opacity .5s var(--ease),visibility .5s;visibility:hidden;overflow-y:auto}
+.menu.open{transform:none;opacity:1;visibility:visible}
 .menu::before{content:'';position:absolute;inset:0;pointer-events:none;
   background-image:linear-gradient(var(--grid2) 1px,transparent 1px),linear-gradient(90deg,var(--grid2) 1px,transparent 1px);
   background-size:56px 56px;opacity:.4;mask-image:radial-gradient(ellipse 80% 70% at 30% 50%,#000,transparent 75%)}
@@ -373,10 +385,12 @@ a.crow:hover .v::after{opacity:1;transform:none}
 .menu button.nav::after{content:'→';position:absolute;right:0;bottom:.18em;font-size:.4em;color:var(--signal);
   opacity:0;transform:translateX(-16px);transition:opacity .4s,transform .4s var(--out)}
 .menu button.nav:hover::after{opacity:1;transform:none}
-.menu-close{position:absolute;top:20px;right:var(--pad);z-index:2;width:46px;height:46px;
-  border:1px solid var(--grid);border-radius:50%;display:grid;place-items:center;color:var(--ash);
-  font:400 20px var(--body);transition:border-color .3s,color .3s,transform .3s var(--out)}
-.menu-close:hover{border-color:var(--signal);color:var(--signal);transform:rotate(90deg)}
+.menu-close{position:absolute;top:14px;right:var(--pad);z-index:3;width:56px;height:56px;
+  border:2px solid var(--signal);border-radius:50%;display:grid;place-items:center;color:var(--signal);
+  font:400 24px var(--body);background:rgba(16,19,24,.4);box-shadow:0 0 24px rgba(92,225,255,.2);
+  transition:background .3s,color .3s,transform .35s var(--out),box-shadow .3s}
+.menu-close:hover{background:var(--signal);color:var(--void);transform:rotate(90deg) scale(1.05);
+  box-shadow:0 0 34px rgba(92,225,255,.5)}
 .menu-meta{margin-top:clamp(24px,5vh,48px);display:flex;justify-content:space-between;gap:16px;
   flex-wrap:wrap;font:500 11px var(--mono);letter-spacing:.14em;color:var(--ash);text-transform:uppercase;
   opacity:0;transition:opacity .6s .6s}
@@ -415,6 +429,8 @@ a.crow:hover .v::after{opacity:1;transform:none}
 
 <!-- ══════ HOME ══════ -->
 <section class="view active" id="view-home">
+  <div class="home-aura"></div>
+  <canvas id="home-canvas"></canvas>
   <div class="hero">
     <div class="hero-l">
       <div class="eyebrow anim d1">Applied AI &amp; Analytics — <b>Computer Vision</b></div>
@@ -633,6 +649,63 @@ function renderDetail(id){
 
 function openProject(id){renderDetail(id);go('detail',{silent:true});history.replaceState(null,'','#work/'+id)}
 
+/* ══════════ HOMEPAGE POINT-CLOUD BACKGROUND ══════════ */
+const homeField=(function(){
+  const canvas=document.getElementById('home-canvas');
+  const ctx=canvas&&canvas.getContext('2d');
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  let w=0,h=0,pts=[],raf=null,running=false;
+  const LINK=140;
+  function count(){return Math.max(28,Math.min(80,Math.floor(window.innerWidth*window.innerHeight/24000)))}
+  function resize(){
+    if(!canvas)return;
+    const dpr=Math.min(window.devicePixelRatio||1,2);
+    w=canvas.clientWidth;h=canvas.clientHeight;
+    canvas.width=w*dpr;canvas.height=h*dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  function seed(){
+    resize();
+    const n=count();pts=[];
+    for(let i=0;i<n;i++)pts.push({
+      x:Math.random()*w,y:Math.random()*h,
+      vx:(Math.random()-.5)*0.24,vy:(Math.random()-.5)*0.24,
+      r:Math.random()*1.5+0.7});
+  }
+  function draw(step){
+    if(!ctx)return;
+    ctx.clearRect(0,0,w,h);
+    for(let i=0;i<pts.length;i++){
+      const p=pts[i];
+      if(step){p.x+=p.vx;p.y+=p.vy;
+        if(p.x<-24)p.x=w+24;else if(p.x>w+24)p.x=-24;
+        if(p.y<-24)p.y=h+24;else if(p.y>h+24)p.y=-24;}
+    }
+    for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+      const a=pts[i],b=pts[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.hypot(dx,dy);
+      if(d<LINK){
+        ctx.strokeStyle='rgba(92,225,255,'+((1-d/LINK)*0.2).toFixed(3)+')';
+        ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+      }
+    }
+    for(const p of pts){
+      ctx.fillStyle='rgba(92,225,255,0.55)';
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.2832);ctx.fill();
+    }
+  }
+  function loop(){draw(true);raf=requestAnimationFrame(loop)}
+  function start(){if(!ctx||running)return;running=true;if(reduce){draw(false)}else{loop()}}
+  function stop(){running=false;if(raf)cancelAnimationFrame(raf);raf=null}
+  let rt;
+  window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{seed();if(running&&reduce)draw(false)},180)});
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden)stop();else if(document.body.dataset.view==='home')start();
+  });
+  if(canvas)seed();
+  return{start,stop};
+})();
+function syncField(view){if(view==='home')homeField.start();else homeField.stop()}
+
 /* ══════════ ROUTER ══════════ */
 const menu=document.getElementById('menu');
 let menuOpen=false,current='home';
@@ -648,11 +721,12 @@ function go(name,opts={}){
     void target.offsetWidth;
     target.classList.add('active');current=name;
     document.body.dataset.view=name;
+    syncField(name);
     document.querySelectorAll('.menu .nav[data-go]').forEach(b=>b.classList.toggle('here',b.dataset.go===name));
     if(!opts.silent)history.replaceState(null,'','#'+(name==='home'?'':name));
     const sc=target.querySelector('.scroller,.hero,.contact-stage');if(sc)sc.scrollTop=0;
   };
-  if(menuOpen){setMenu(false);setTimeout(doSwitch,400)}else{doSwitch()}
+  if(menuOpen){doSwitch();setMenu(false)}else{doSwitch()}
 }
 document.querySelectorAll('[data-menu]').forEach(b=>b.addEventListener('click',()=>setMenu(!menuOpen)));
 document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go)));
@@ -676,6 +750,7 @@ addEventListener('hashchange',()=>{
 renderGrid();
 requestAnimationFrame(()=>document.body.classList.add('ready'));
 routeFromHash();
+syncField(document.body.dataset.view);
 </script>
 </body>
 </html>
