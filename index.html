@@ -300,7 +300,8 @@ body.ready #home-canvas{opacity:1}
 .tag{font:500 12px var(--mono);color:var(--ash);border:1px solid var(--grid);padding:8px 14px;
   border-radius:100px;transition:all .3s;cursor:default}
 .tag:hover{color:var(--void);background:var(--signal);border-color:var(--signal)}
-.detail-links{display:flex;gap:12px;flex-wrap:wrap}
+.detail-links{display:flex;gap:10px;flex-wrap:wrap}
+.detail-links .btn{flex:1 1 auto;justify-content:center;min-width:170px}
 
 /* ═══════════════ ABOUT ═══════════════ */
 .about-grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:.85fr 1.15fr;
@@ -573,16 +574,20 @@ a.crow:hover .v::after{opacity:1;transform:none}
 const PROJECTS=[
   {id:'sgaccounts',title:'SGAccounts',sub:'Self-built Carousell business',status:'live',stat:'Active',
    tags:['Data-driven','E-commerce','Growth','Marketing'],
-   link:'https://www.carousell.sg/',
+   links:[{label:'View on Carousell ↗',url:'https://www.carousell.sg/',primary:true}],
    metrics:[{v:'3,000+',k:'Customers served'},{v:'2,700',k:'Five-star reviews'},{v:'#1',k:'Category seller'}],
    short:'A storefront run entirely on data-driven product and marketing decisions.',
    about:"SGAccounts is a Carousell business I built and run solo — from sourcing and pricing to listings, customer service, and marketing. Every decision is driven by data rather than gut: I track conversion by listing, test copy and pricing, and lean into whatever the numbers reward.\n\nThe result is <b>3,000+ customers</b> and <b>2,700 five-star reviews</b> — proof that disciplined, measurable iteration beats guessing. It's also where I learned that the rigor I bring to model training applies to a real business: define the metric, run the experiment, keep what wins."},
-  {id:'ptfish',title:'PTFish',sub:'YOLOv8 automation bot · Python',status:'',stat:'Python',
-   tags:['YOLOv8','OpenCV','Computer Vision','Automation'],
-   link:'https://github.com/JasperTham',
-   metrics:[{v:'95%',k:'Detection accuracy'},{v:'Real-time',k:'Screen capture'},{v:'Custom',k:'Trained model'}],
-   short:'Custom-trained detection + screen capture automating gameplay at 95% accuracy.',
-   about:"PTFish is a computer-vision automation bot for the game <b>Play Together</b>. I trained a custom YOLOv8 model to recognize the in-game fishing cues, then paired it with real-time screen capture so the system reacts the instant a catch appears.\n\nIt runs end-to-end at <b>95% detection accuracy</b> — the kind of reliability that only comes from a clean dataset, careful labeling, and tuning the model until it works outside the notebook. PTFish is a compact showcase of the full loop I care about: collect data, train, deploy, and let the model make decisions in real time."}
+  {id:'ptfish',title:'PTFish',sub:'Computer-vision automation product · Python',status:'live',stat:'Shipping',
+   tags:['YOLOv8','OpenCV','OCR','Computer Vision','Automation','Python'],
+   links:[
+     {label:'Visit ptfish.space-z.ai ↗',url:'https://ptfish.space-z.ai',primary:true},
+     {label:'Get it on Gumroad ↗',url:'https://cowbat7.gumroad.com/l/ptfishv2'},
+     {label:'Watch the demo ↗',url:'https://www.youtube.com/watch?v=npXSVHj2Ut4'}
+   ],
+   metrics:[{v:'95%',k:'Detection accuracy'},{v:'Real-time',k:'Vision + OCR'},{v:'Shipped',k:'Live product'}],
+   short:'A shipped CV product — real-time detection that plays the game hands-free. Live site, free trial, sold on Gumroad.',
+   about:"PTFish is a fully automated fishing bot for <b>Play Together</b> — and the project where a trained model became a real product people pay for. It casts, detects bites through real-time computer vision, and hooks the catch with zero input from the player.\n\nUnder the hood it runs on <b>custom-trained detection and OCR</b> at <b>95% accuracy</b>, reading the screen the way a human does — <b>no game injection</b>. It handles the rare Gigantic-fish minigame with splash-based timing, recognizes store-ready catches and card packs, auto-detects when the rod needs repair, and reports live session stats through an always-on-top overlay. Detection regions are slider-adjustable, so it adapts to most window sizes and resolutions.\n\nI also built and run <b>ptfish.space-z.ai</b>, the product's landing page — positioning, copy, demo video, and conversion funnel through to a free 7-day trial and paid distribution on Gumroad. It's the whole loop end to end: collect data, train the model, ship the software, and market it."}
 ];
 
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -612,6 +617,8 @@ function renderDetail(id){
   const body=document.getElementById('detail-body');body.innerHTML='';
   const metricsHtml=p.metrics.map(m=>`<div class="metric"><div class="mv">${esc(m.v)}</div><div class="mk">${esc(m.k)}</div></div>`).join('');
   const tagsHtml=p.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join('');
+  const linksHtml=(p.links||[]).map(l=>
+    `<a class="btn ${l.primary?'solid':'ghost'}" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('');
   const aboutHtml=p.about.split('\n').map(l=>l?`<p>${l}</p>`:'').join('');
   const conf='0.9'+(Math.floor(Math.random()*8)+1);
   const node=el(`<div class="detail-wrap">
@@ -635,8 +642,9 @@ function renderDetail(id){
         <div class="metrics">${metricsHtml}</div>
         <div class="blk-title"><b>STACK</b></div>
         <div class="taglist">${tagsHtml}</div>
+        <div class="blk-title"><b>LINKS</b></div>
         <div class="detail-links">
-          ${p.link?`<a class="btn ghost" href="${esc(p.link)}" target="_blank" rel="noopener">Open project ↗</a>`:''}
+          ${linksHtml}
           <button class="btn ghost" data-go="contact">Discuss →</button>
         </div>
       </div>
