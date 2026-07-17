@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jasper Tham — Vision Systems</title>
+<title>Jasper Tham - Portfolio</title>
 <meta name="description" content="Jasper Tham — I build AI that sees. Computer vision, YOLOv8, real-time detection, automation. Singapore.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -303,6 +303,36 @@ body.ready #home-canvas{opacity:1}
 .detail-links{display:flex;gap:10px;flex-wrap:wrap}
 .detail-links .btn{flex:1 1 auto;justify-content:center;min-width:170px}
 
+/* project media — live preview + screenshots */
+.detail-media{margin:22px 0 4px}
+.browser-frame{border:1px solid var(--grid);border-radius:11px;overflow:hidden;background:var(--carbon);
+  box-shadow:0 24px 60px rgba(0,0,0,.45)}
+.browser-bar{display:flex;align-items:center;gap:12px;height:42px;padding:0 15px;background:var(--void);
+  border-bottom:1px solid var(--grid)}
+.browser-bar .dots{display:flex;gap:6px;flex:none}
+.browser-bar .dots i{width:10px;height:10px;border-radius:50%;background:var(--grid)}
+.browser-bar .url{flex:1;min-width:0;font:500 11px var(--mono);color:var(--ash);background:var(--carbon);
+  border:1px solid var(--grid);border-radius:6px;padding:6px 12px;white-space:nowrap;overflow:hidden;
+  text-overflow:ellipsis}
+.browser-bar .badge{flex:none;font:500 9px var(--mono);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--alert);display:flex;align-items:center;gap:6px}
+.browser-bar .badge i{width:6px;height:6px;border-radius:50%;background:var(--alert);
+  box-shadow:0 0 8px var(--alert);animation:blink 1.8s infinite}
+.browser-frame iframe{display:block;width:100%;height:min(600px,72vh);border:0;background:#0e0e12}
+.media-cap{font:500 10px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--ash);margin:12px 0 0}
+.shot-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:22px}
+.shot{position:relative;display:block;border:1px solid var(--grid);border-radius:9px;overflow:hidden;
+  background:var(--carbon);min-height:150px;transition:border-color .3s,transform .4s var(--out)}
+.shot:hover{border-color:var(--signal);transform:translateY(-3px)}
+.shot img{width:100%;display:block;background:var(--carbon)}
+.shot .slabel{position:absolute;left:0;right:0;bottom:0;padding:22px 13px 11px;font:500 10px var(--mono);
+  letter-spacing:.12em;text-transform:uppercase;color:var(--bone);
+  background:linear-gradient(0deg,rgba(10,11,14,.92),transparent)}
+.shot .exp{position:absolute;top:10px;right:11px;font:500 10px var(--mono);letter-spacing:.1em;
+  color:var(--signal);opacity:0;transform:translateY(-4px);transition:.3s}
+.shot:hover .exp{opacity:1;transform:none}
+@media(max-width:480px){.browser-frame iframe{height:62vh}}
+
 /* ═══════════════ ABOUT ═══════════════ */
 .about-grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:.85fr 1.15fr;
   gap:clamp(32px,6vw,90px)}
@@ -587,7 +617,21 @@ const PROJECTS=[
    ],
    metrics:[{v:'95%',k:'Detection accuracy'},{v:'Real-time',k:'Vision + OCR'},{v:'Shipped',k:'Live product'}],
    short:'A shipped CV product — real-time detection that plays the game hands-free. Live site, free trial, sold on Gumroad.',
-   about:"PTFish is a fully automated fishing bot for <b>Play Together</b> — and the project where a trained model became a real product people pay for. It casts, detects bites through real-time computer vision, and hooks the catch with zero input from the player.\n\nUnder the hood it runs on <b>custom-trained detection and OCR</b> at <b>95% accuracy</b>, reading the screen the way a human does — <b>no game injection</b>. It handles the rare Gigantic-fish minigame with splash-based timing, recognizes store-ready catches and card packs, auto-detects when the rod needs repair, and reports live session stats through an always-on-top overlay. Detection regions are slider-adjustable, so it adapts to most window sizes and resolutions.\n\nI also built and run <b>ptfish.space-z.ai</b>, the product's landing page — positioning, copy, demo video, and conversion funnel through to a free 7-day trial and paid distribution on Gumroad. It's the whole loop end to end: collect data, train the model, ship the software, and market it."}
+   about:"PTFish is a fully automated fishing bot for <b>Play Together</b> — and the project where a trained model became a real product people pay for. It casts, detects bites through real-time computer vision, and hooks the catch with zero input from the player.\n\nUnder the hood it runs on <b>custom-trained detection and OCR</b> at <b>95% accuracy</b>, reading the screen the way a human does — <b>no game injection</b>. It handles the rare Gigantic-fish minigame with splash-based timing, recognizes store-ready catches and card packs, auto-detects when the rod needs repair, and reports live session stats through an always-on-top overlay. Detection regions are slider-adjustable, so it adapts to most window sizes and resolutions.\n\nI also built and run <b>ptfish.space-z.ai</b>, the product's landing page — positioning, copy, demo video, and conversion funnel through to a free 7-day trial and paid distribution on Gumroad. It's the whole loop end to end: collect data, train the model, ship the software, and market it."},
+  {id:'jttrades',title:'JT Trades Calendar',sub:'Trading-journal dashboard · Web app',status:'live',stat:'Live',
+   tags:['JavaScript','Data Viz','Charting','CSV I/O','Frontend','GitHub Pages'],
+   links:[
+     {label:'Open the dashboard ↗',url:'https://jaspertham.github.io/JTTradesCalendar/',primary:true},
+     {label:'View source ↗',url:'https://github.com/JasperTham/JTTradesCalendar'}
+   ],
+   media:[
+     {type:'live',url:'https://jaspertham.github.io/JTTradesCalendar/',label:'Live dashboard — interact with it right here'},
+     {type:'shot',url:'https://s.wordpress.com/mshots/v1/https%3A%2F%2Fjaspertham.github.io%2FJTTradesCalendar%2F?w=1280&h=820',label:'Calendar & equity curve'},
+     {type:'shot',url:'https://s.wordpress.com/mshots/v1/https%3A%2F%2Fjaspertham.github.io%2FJTTradesCalendar%2F?w=460&h=760',label:'Responsive mobile layout'}
+   ],
+   metrics:[{v:'Daily',k:'P&L calendar'},{v:'CSV',k:'Import / export'},{v:'100%',k:'Client-side'}],
+   short:'A self-built trading journal that turns daily P&L into a calendar, equity curve, and discipline tracker.',
+   about:"JT Trades Calendar is the tool behind the trading side of my bio — a self-built dashboard for journaling futures trades and holding myself to a system. Every trading day becomes a tile on a monthly <b>P&L calendar</b>, with net profit, day count, and trade count rolling up at the top.\n\nIt goes past a simple log: a live <b>equity curve</b>, payout tracking, a <b>consistency</b> score and strategy streak, plus a starting balance and max-loss guardrail. Each day I log the amount, number of trades, and whether I actually followed my strategy — and if I try to mark a losing day as 'on-plan,' it pushes back with a <b>'did you REALLY stick with your strategy?'</b> confirmation. Data moves in and out through <b>CSV import/export</b>, and the whole thing runs client-side on GitHub Pages.\n\nIt's the same principle as everything else I build: define the metric, make the behavior measurable, and let the data — not the mood — drive the next decision."}
 ];
 
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -619,6 +663,25 @@ function renderDetail(id){
   const tagsHtml=p.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join('');
   const linksHtml=(p.links||[]).map(l=>
     `<a class="btn ${l.primary?'solid':'ghost'}" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('');
+  const media=p.media||[];
+  const live=media.filter(m=>m.type==='live');
+  const shots=media.filter(m=>m.type==='shot');
+  let mediaHtml='';
+  live.forEach(m=>{
+    mediaHtml+=`<div class="browser-frame">
+      <div class="browser-bar"><span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">${esc(m.url)}</span><span class="badge"><i></i>Live</span></div>
+      <iframe src="${esc(m.url)}" loading="lazy" title="${esc(m.label||p.title)}" referrerpolicy="no-referrer"></iframe>
+    </div>${m.label?`<div class="media-cap">${esc(m.label)}</div>`:''}`;
+  });
+  if(shots.length){
+    mediaHtml+=`<div class="shot-grid">`+shots.map(m=>
+      `<a class="shot" href="${esc(m.url)}" target="_blank" rel="noopener">
+        <span class="exp">OPEN ↗</span>
+        <img src="${esc(m.url)}" alt="${esc(m.label||p.title)}" loading="lazy">
+        ${m.label?`<span class="slabel">${esc(m.label)}</span>`:''}
+      </a>`).join('')+`</div>`;
+  }
   const aboutHtml=p.about.split('\n').map(l=>l?`<p>${l}</p>`:'').join('');
   const conf='0.9'+(Math.floor(Math.random()*8)+1);
   const node=el(`<div class="detail-wrap">
@@ -632,6 +695,7 @@ function renderDetail(id){
       <h2>${esc(p.title)}</h2>
       <div class="detail-sub">${esc(p.sub)}</div>
     </div>
+    ${mediaHtml?`<div class="detail-media anim d2">${mediaHtml}</div>`:''}
     <div class="detail-body">
       <div class="anim d2">
         <div class="blk-title"><b>OVERVIEW</b></div>
